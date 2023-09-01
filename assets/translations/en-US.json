@@ -1,0 +1,14 @@
+{
+  "login": "Login",
+  "english": "English",
+  "vietnamese": "Vietnamese",
+  "thailand": "Thailand",
+  "language": "Language",
+  "theme": "Theme",
+  "notify": "Notification",
+  "ok": "OK",
+  "lostConnectionTitle": "Disconnected",
+  "lostConnectionContent": "It may be due to weak network or no internet connection. Please check your internet connection!",
+  "error": "Error",
+  "success": "Success"
+}

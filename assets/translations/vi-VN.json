@@ -1,0 +1,15 @@
+{
+  "login": "Đăng nhập",
+  "english": "Tiếng Anh",
+  "vietnamese": "Tiếng Việt",
+  "thailand": "Thái Lan",
+  "language": "Ngôn ngữ",
+  "theme": "Chủ đề",
+  "notify": "Thông báo",
+  "ok": "Đồng ý",
+  "lostConnectionTitle": "Mất kết nối",
+  "lostConnectionContent": "Có thể do mạng yếu hoặc chưa kết nối internet. Hãy kiểm tra lại đường truyền internet của bạn nhé!",
+  "logoutNotify": "Phiên hết phiên đăng nhập. Vui lòng đăng nhập lại!",
+  "error": "Lỗi",
+  "success": "Thành công"
+}
