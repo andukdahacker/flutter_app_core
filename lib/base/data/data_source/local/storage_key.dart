@@ -1,0 +1,4 @@
+enum LocalStorageKey {
+  token,
+  languageCode,
+}

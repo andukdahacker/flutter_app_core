@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../modules/bloc_observer/observer.dart';
-import '../modules/di/di.dart';
+import '../base/presentation/bloc/bloc_observer/observer.dart';
+import '../di/di.dart';
 import 'app_flavor.dart';
 
 Future<void> configMain(Flavor flavor) async {
