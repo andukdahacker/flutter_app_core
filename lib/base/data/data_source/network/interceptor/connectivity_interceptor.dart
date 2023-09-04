@@ -1,6 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:injectable/injectable.dart';
 
 import 'base_interceptor.dart';
@@ -20,7 +19,7 @@ class ConnectivityInterceptor extends BaseInterceptor {
       return handler.reject(
         DioException(
           requestOptions: options,
-          error: Exception('lostConnectionContent'.tr()),
+          error: Exception('lostConnectionContent'),
         ),
       );
     }

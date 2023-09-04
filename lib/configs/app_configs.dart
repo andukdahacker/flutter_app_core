@@ -1,17 +1,12 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../base/presentation/bloc/bloc_observer/observer.dart';
 import '../di/di.dart';
-import 'app_flavor.dart';
 
-Future<void> configMain(Flavor flavor) async {
-  // Preserve splash screen until authentication complete.
+Future<void> configMain() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
   );
@@ -23,13 +18,9 @@ Future<void> configMain(Flavor flavor) async {
       statusBarIconBrightness: Brightness.dark,
     ),
   );
-  final FlavorConfig flavorConfig = await FlavorConfig.setup(flavor);
-  getIt.registerSingleton(flavorConfig);
+
   configureDependencies();
 
   // Set bloc observer and hydrated bloc storage.
   Bloc.observer = Observer();
-  HydratedBloc.storage = await HydratedStorage.build(
-    storageDirectory: await getApplicationDocumentsDirectory(),
-  );
 }
