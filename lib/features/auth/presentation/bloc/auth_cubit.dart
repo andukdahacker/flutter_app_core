@@ -1,36 +1,38 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../base/data/models/result.dart';
-import '../../../../base/utils/api_utils.dart';
+import '../../../../router/router.dart';
 import '../../domain/use_case/check_auth_use_case.dart';
-import 'auth_state.dart';
+
+part 'auth_state.dart';
+
+part 'auth_cubit.freezed.dart';
 
 @lazySingleton
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit(this._checkAuthUseCase) : super(const AuthState.loading()) {
+  AuthCubit(this._checkAuthUseCase) : super(const AuthState()) {
     checkAuth();
   }
 
   final CheckAuthUseCase _checkAuthUseCase;
 
   void checkAuth() {
+    print('AuthCubit.checkAuth');
     final result = _checkAuthUseCase.execute();
+    emit(state.copyWith(loading: false));
+    switch (result) {
+      case Success<String, Exception>():
+        emit(state.copyWith(authenticated: true));
 
-    return switch (result) {
-      Success<String, Exception>(value: final value) =>
-        emit(AuthState.authenticated(value)),
-      Failure<String, Exception>(
-        exception: final exception,
-        stackTrace: final stackTrace
-      ) =>
-        handleFailure(
-          exception,
-          stackTrace: stackTrace,
-          onFailure: (exception) {
-            emit(const AuthState.unauthenticated());
-          },
-        ),
-    };
+      case Failure<String, Exception>():
+        emit(state.copyWith(authenticated: false));
+    }
+
+  }
+  void toggleLoading() {
+    emit(state.copyWith(loading: !state.loading));
   }
 }

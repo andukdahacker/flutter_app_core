@@ -10,16 +10,16 @@ import 'interceptor/connectivity_interceptor.dart';
 Dio initDioClient() {
   final dio = Dio();
 
-  if (Platform.isAndroid || Platform.isIOS) {
-    /// Allows https requests for older devices.
-    (dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
-      final HttpClient client = HttpClient();
-      client.badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-
-      return client;
-    };
-  }
+  // if (Platform.isAndroid || Platform.isIOS) {
+  //   /// Allows https requests for older devices.
+  //   (dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
+  //     final HttpClient client = HttpClient();
+  //     client.badCertificateCallback =
+  //         (X509Certificate cert, String host, int port) => true;
+  //
+  //     return client;
+  //   };
+  // }
 
   dio.options.connectTimeout = const Duration(seconds: 60);
   dio.options.receiveTimeout = const Duration(seconds: 60);
