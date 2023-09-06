@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+
 import 'app_state.dart';
 
-@injectable
+@singleton
 class AppCubit extends Cubit<AppState> {
   AppCubit() : super(const AppState());
 

@@ -6,13 +6,13 @@ import '../../../domain/entity/login_input.dart';
 import '../models/login_model.dart';
 import 'end_point.dart';
 
-abstract class AuthDatasource {
+abstract class AuthRemoteDatasource {
   Future<BaseResponse<LoginModel>> login(LoginInput input);
 }
 
-@Injectable(as: AuthDatasource)
-class AuthDatasourceImpl implements AuthDatasource {
-  AuthDatasourceImpl(this._dio);
+@Injectable(as: AuthRemoteDatasource)
+class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
+  AuthRemoteDatasourceImpl(this._dio);
 
   final Dio _dio;
 

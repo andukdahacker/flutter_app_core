@@ -1,6 +1,7 @@
-import '../../../../base/presentation/bloc/base_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'home_state.dart';
 
-class HomeCubit extends BaseCubit<HomeState> {
+class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeState());
 }
