@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 
 import 'base_interceptor.dart';
 
+
 @injectable
 class AuthInterceptors extends BaseInterceptor {
   @override

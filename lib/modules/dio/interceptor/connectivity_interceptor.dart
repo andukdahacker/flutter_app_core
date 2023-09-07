@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 
 import 'base_interceptor.dart';
 
+
 @Injectable()
 class ConnectivityInterceptor extends BaseInterceptor {
   @override

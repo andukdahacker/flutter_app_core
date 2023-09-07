@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:omt_base_project/modules/di/di.dart';
 
 import '../../app/app_cubit.dart';
-import '../../di/di.dart';
 import '../../router/router.dart';
 import '../auth/presentation/bloc/auth_cubit.dart';
 

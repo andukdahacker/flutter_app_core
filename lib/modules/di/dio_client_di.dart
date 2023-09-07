@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-import '../base/data/data_source/network/dio_client.dart';
+import '../dio/dio_client.dart';
 
 @module
 abstract class DioInjection {

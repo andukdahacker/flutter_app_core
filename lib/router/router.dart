@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:omt_base_project/features/auth/presentation/login/web/login_screen.dart';
 
-import '../features/auth/presentation/login/login_screen.dart';
 import '../features/home/presentation/home_screen.dart';
 import '../features/profile/presentation/view/profile_screen.dart';
 import '../features/splash/splash_screen.dart';
 
 class AppRouter {
   static final rootNavKey = GlobalKey<NavigatorState>();
+
+  static final scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
   static GoRouter get router => _router;
 
