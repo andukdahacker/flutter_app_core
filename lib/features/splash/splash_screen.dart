@@ -15,62 +15,61 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
-  void didChangeDependencies() {
-    final authenticated = getIt<AuthCubit>().state.authenticated;
-
-    if(authenticated) {
-      context.go('/home');
-    } else {
-      context.go('/login');
-    }
-    super.didChangeDependencies();
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      getIt<AuthCubit>().checkAuth();
+    });
+    super.initState();
   }
-
-
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit, AuthState>(
-      listenWhen: (previous, current) => previous.authenticated != current.authenticated,
+    return BlocListener<AuthCubit, AuthState>(
+      listenWhen: (previous, current) =>
+      previous.authenticated != current.authenticated ||
+          previous.loading != current.loading,
       listener: (context, state) {
-        if(state.authenticated) {
-          context.go('/home');
+        if (state.authenticated) {
+          context.go(Routes.home.path);
         } else {
-          context.go('/login');
+          context.go(Routes.login.path);
         }
       },
-      buildWhen: (previous, current) {
-        print('SplashScreen.build ${previous}');
-        print('SplashScreen.build ${current}');
-        return true;
-      },
-      builder: (context, state) {
-        return Scaffold(
-          body: Center(
-            child: Column(
-              children: [
-                const Text('SPLASH'),
-                TextButton(onPressed: () {
-                  getIt<AuthCubit>().checkAuth();
-                }, child: const Text('Login')),
-                TextButton(onPressed: () {
-                  getIt<AuthCubit>().toggleLoading();
-                }, child: Text('Toggle loading')),
-                TextButton(onPressed: () {
-                  final theme = getIt<AppCubit>().state.themeMode;
-                  if(theme == ThemeMode.light) {
-                    getIt<AppCubit>().changeTheme(ThemeMode.dark);
-                  } else {
-                    getIt<AppCubit>().changeTheme(ThemeMode.light);
-                  }
+      child: Scaffold(
+        body: Center(
+          child: Column(
+            children: [
+              const Text('SPLASH'),
+              TextButton(
+                  onPressed: () {
+                    context.go(Routes.login.path);
+                  },
+                  child: const Text('Login screen')),
+              TextButton(
+                  onPressed: () {
+                    context.go(Routes.home.path);
+                  },
+                  child: const Text('To home screen')),
 
-                }, child: Text('Change theme'))
-              ],
-            ),
+              TextButton(
+                  onPressed: () {
+                    getIt<AuthCubit>().checkAuth();
+                  },
+                  child: const Text('Check auth')),
+              TextButton(
+                  onPressed: () {
+                    final theme = getIt<AppCubit>().state.themeMode;
+                    if (theme == ThemeMode.light) {
+                      getIt<AppCubit>().changeTheme(ThemeMode.dark);
+                    } else {
+                      getIt<AppCubit>().changeTheme(ThemeMode.light);
+                    }
+                  },
+                  child: const Text('Change theme'))
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

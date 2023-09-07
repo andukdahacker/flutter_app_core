@@ -16,30 +16,43 @@ class AppRouter {
     initialLocation: '/',
     routes: [
       GoRoute(
-          path: '/',
-          builder: (context, state) => const SplashScreen(),
-          routes: [
-            GoRoute(
-              path: 'login',
-              builder: (context, state) => const LoginScreen(),
-            ),
-            GoRoute(
-              path: 'home',
-              builder: (context, state) => const HomeScreen(),
-              routes: [
-                GoRoute(
-                  path: 'profile',
-                  builder: (context, state) => const ProfileScreen(),
-                )
-              ],
-            )
-          ]),
+        path: Routes.splash.path,
+        name: Routes.splash.name,
+        pageBuilder: (context, state) =>
+            MaterialPage(key: state.pageKey, child: const SplashScreen()),
+      ),
+      GoRoute(
+        path: Routes.login.path,
+        name: Routes.login.name,
+        pageBuilder: (context, state) =>
+            MaterialPage(key: state.pageKey, child: const LoginScreen()),
+      ),
+      GoRoute(
+        path: Routes.home.path,
+        name: Routes.home.name,
+        pageBuilder: (context, state) =>
+            MaterialPage(key: state.pageKey, child: const HomeScreen()),
+        routes: [
+          GoRoute(
+            path: Routes.profile.path,
+            name: Routes.profile.name,
+            pageBuilder: (context, state) =>
+                MaterialPage(key: state.pageKey, child: const ProfileScreen()),
+          )
+        ],
+      )
     ],
   );
 }
 
-class Routes {
-  static const String login = '/login';
-  static const String home = ' /home';
-  static const String splash = '/';
+enum Routes {
+  splash(name: 'splash', path: '/'),
+  login(name: 'login', path: '/login'),
+  home(name: 'home', path: '/home'),
+  profile(name: 'profile', path: 'profile');
+
+  const Routes({required this.name, required this.path});
+
+  final String name;
+  final String path;
 }

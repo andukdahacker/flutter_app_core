@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:omt_base_project/router/router.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -10,7 +11,7 @@ class ProfileScreen extends StatelessWidget {
       body: Center(
         child: TextButton(
           onPressed: () {
-            context.pop();
+            context.goNamed(Routes.login.name);
           },
           child: const Text('Back to home'),
         ),

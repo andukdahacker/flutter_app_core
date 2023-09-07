@@ -13,14 +13,11 @@ part 'auth_cubit.freezed.dart';
 
 @lazySingleton
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit(this._checkAuthUseCase) : super(const AuthState()) {
-    checkAuth();
-  }
+  AuthCubit(this._checkAuthUseCase) : super(const AuthState());
 
   final CheckAuthUseCase _checkAuthUseCase;
 
   void checkAuth() {
-    print('AuthCubit.checkAuth');
     final result = _checkAuthUseCase.execute();
     emit(state.copyWith(loading: false));
     switch (result) {
