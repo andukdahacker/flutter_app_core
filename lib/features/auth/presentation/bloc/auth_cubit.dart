@@ -27,9 +27,6 @@ class AuthCubit extends Cubit<AuthState> {
       case Failure<String, Exception>():
         emit(state.copyWith(authenticated: false));
     }
+  }
 
-  }
-  void toggleLoading() {
-    emit(state.copyWith(loading: !state.loading));
-  }
 }

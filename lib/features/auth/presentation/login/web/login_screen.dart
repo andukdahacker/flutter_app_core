@@ -5,6 +5,8 @@ import 'package:omt_base_project/router/router.dart';
 import '../../../../../base/presentation/extension/context_screen_size.dart';
 import '../../../../../base/presentation/widget/adaptive_scaffold_widget.dart';
 import '../../../../../base/presentation/widget/web_app_bar.dart';
+import '../../../../../modules/di/di.dart';
+import '../../bloc/auth_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -40,11 +42,15 @@ class LoginScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: const AdaptiveWidgetBuilder(
+      body: AdaptiveWidgetBuilder(
         extraSmallScreenWidget: Center(
-          child: Text(
-            'Extra small',
-            style: TextStyle(color: Colors.white),
+          child: Column(
+            children: [
+              Text(
+                'Extra small',
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
           ),
         ),
         smallScreenWidget: Center(
