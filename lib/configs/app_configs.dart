@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
-import '../base/presentation/bloc/bloc_observer/observer.dart';
+import '../modules/bloc_observer/observer.dart';
 import '../features/auth/presentation/bloc/auth_cubit.dart';
 import '../modules/di/di.dart';
 

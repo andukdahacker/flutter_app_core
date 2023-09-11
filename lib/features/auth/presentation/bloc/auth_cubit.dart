@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../base/data/models/result.dart';
-import '../../../../router/router.dart';
+import '../../../../modules/router/router.dart';
 import '../../domain/use_case/check_auth_use_case.dart';
 
 part 'auth_state.dart';

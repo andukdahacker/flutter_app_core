@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_core/base/presentation/theme/app_color.dart';
 
+import 'package:flutter_svg/flutter_svg.dart';
+import '../extension/context_theme.dart';
+import '../resources/asset_paths/icons_paths.dart';
 import 'adaptive_scaffold_widget.dart';
+import 'spacing_widgets.dart';
 import 'theme_switch_widget.dart';
 
 class WebAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -15,14 +20,18 @@ class WebAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: AdaptiveWidgetBuilder(
         extraSmallScreenWidget: Row(
           children: [
-            Icon(Icons.abc_rounded),
-            ThemeSwitchWidget(),
-            InkWell(
-              onTap: () {
-                Scaffold.of(context).openEndDrawer();
-              },
-              child: Icon(Icons.menu),
-            )
+            width8,
+            SvgPicture.asset(IconPaths.icLogo),
+            width8,
+            Text(
+              'SPARKLE',
+              style: context.textTheme.displaySmall?.copyWith(
+                color: AppColor.primary,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+            const Spacer(),
+            const ThemeSwitchWidget(),
           ],
         ),
         smallScreenWidget: Row(

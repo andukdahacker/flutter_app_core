@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:omt_base_project/router/router.dart';
 
 import '../../../../../base/presentation/extension/context_screen_size.dart';
+import '../../../../../base/presentation/extension/context_theme.dart';
+import '../../../../../base/presentation/theme/app_theme_src.dart';
 import '../../../../../base/presentation/widget/adaptive_scaffold_widget.dart';
 import '../../../../../base/presentation/widget/web_app_bar.dart';
-import '../../../../../modules/di/di.dart';
-import '../../bloc/auth_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -14,42 +12,36 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WebAppBar(height: context.screenHeight),
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text('Drawer Header'),
-            ),
-            ListTile(
-              title: const Text('Item 1'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: const Text('Item 2'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-          ],
-        ),
+      appBar: WebAppBar(
+        height: context.screenHeight,
       ),
       body: AdaptiveWidgetBuilder(
         extraSmallScreenWidget: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Extra small',
-                style: TextStyle(color: Colors.white),
+                'Sign in to your account',
+                style: context.textTheme.titleMedium?.copyWith(
+                    color: AppColor.primary, fontWeight: FontWeight.w700),
               ),
+              RichText(
+                text: TextSpan(
+                  text: 'Or ',
+                  style: context.textTheme.labelLarge,
+                  children: [
+                    TextSpan(
+                      text: 'Create a new account',
+                      style: context.textTheme.labelLarge?.copyWith(
+                        color: AppColor.primary,
+                        decoration: TextDecoration.underline,
+                        decorationStyle: TextDecorationStyle.solid,
+                        decorationThickness: 2
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),

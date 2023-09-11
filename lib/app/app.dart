@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../base/presentation/theme/app_theme.dart';
 import '../features/auth/presentation/bloc/auth_cubit.dart';
 import '../modules/di/di.dart';
-import '../router/router.dart';
+import '../modules/router/router.dart';
 import 'app_cubit.dart';
 import 'app_state.dart';
 

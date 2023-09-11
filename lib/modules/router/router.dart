@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../features/auth/presentation/bloc/auth_cubit.dart';
-import '../features/auth/presentation/login/web/login_screen.dart';
-import '../features/home/presentation/home_screen.dart';
-import '../features/profile/presentation/view/profile_screen.dart';
-import '../modules/di/di.dart';
+import '../../features/auth/presentation/bloc/auth_cubit.dart';
+import '../../features/auth/presentation/login/web/login_screen.dart';
+import '../../features/home/presentation/home_screen.dart';
+import '../../features/profile/presentation/view/profile_screen.dart';
+import '../di/di.dart';
 
 class AppRouter {
   static final rootNavKey = GlobalKey<NavigatorState>();
