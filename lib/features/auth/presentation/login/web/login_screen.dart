@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_core/modules/router/router.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../base/presentation/extension/context_screen_size.dart';
 import '../../../../../base/presentation/extension/context_theme.dart';
@@ -26,21 +28,26 @@ class LoginScreen extends StatelessWidget {
                 style: context.textTheme.titleMedium?.copyWith(
                     color: AppColor.primary, fontWeight: FontWeight.w700),
               ),
-              RichText(
-                text: TextSpan(
-                  text: 'Or ',
-                  style: context.textTheme.labelLarge,
-                  children: [
-                    TextSpan(
-                      text: 'Create a new account',
-                      style: context.textTheme.labelLarge?.copyWith(
-                        color: AppColor.primary,
-                        decoration: TextDecoration.underline,
-                        decorationStyle: TextDecorationStyle.solid,
-                        decorationThickness: 2
+              InkWell(
+                onTap: () {
+                  print('LoginScreen.build');
+                  context.push(Routes.signUp.path);
+                },
+                child: RichText(
+                  text: TextSpan(
+                    text: 'Or ',
+                    style: context.textTheme.labelLarge,
+                    children: [
+                      TextSpan(
+                        text: 'Create a new account',
+                        style: context.textTheme.labelLarge?.copyWith(
+                            color: AppColor.primary,
+                            decoration: TextDecoration.underline,
+                            decorationStyle: TextDecorationStyle.solid,
+                            decorationThickness: 2),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               const LoginFormWidget(),

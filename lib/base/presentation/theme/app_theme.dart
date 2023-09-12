@@ -10,6 +10,7 @@ class AppTheme {
     fontFamily: 'Montserrat',
     visualDensity: VisualDensity.adaptivePlatformDensity,
     inputDecorationTheme: inputDecorationThemeLight,
+    checkboxTheme: checkboxTheme,
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColor.primary,
       secondary: AppColor.secondary,
@@ -23,6 +24,7 @@ class AppTheme {
     fontFamily: 'Montserrat',
     visualDensity: VisualDensity.adaptivePlatformDensity,
     inputDecorationTheme: inputDecorationThemeDark,
+    checkboxTheme: checkboxTheme,
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColor.primary,
       secondary: AppColor.secondary,
@@ -45,5 +47,13 @@ class AppTheme {
       borderSide: BorderSide(color: AppColor.gray200, width: 1),
     ),
     hintStyle: AppTextTheme.textThemeDark.labelMedium,
+  );
+
+  static CheckboxThemeData checkboxTheme = const CheckboxThemeData(
+    visualDensity: VisualDensity(
+      horizontal: VisualDensity.minimumDensity,
+      vertical: VisualDensity.minimumDensity,
+    ),
+    shape: CircleBorder(),
   );
 }

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/bloc/auth_cubit.dart';
 import '../../features/auth/presentation/login/web/login_screen.dart';
+import '../../features/auth/presentation/sign_up/web/sign_up_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/profile/presentation/view/profile_screen.dart';
 import '../di/di.dart';
@@ -25,6 +26,14 @@ class AppRouter {
               MaterialPage(key: state.pageKey, child: const LoginScreen()),
         ),
         GoRoute(
+          path: Routes.signUp.path,
+          name: Routes.signUp.name,
+          pageBuilder: (context, state) => MaterialPage(
+            key: state.pageKey,
+            child: const SignUpScreen(),
+          ),
+        ),
+        GoRoute(
           path: Routes.home.path,
           name: Routes.home.name,
           pageBuilder: (context, state) =>
@@ -40,9 +49,11 @@ class AppRouter {
         ),
       ],
       redirect: (context, state) {
-        final authenticated = getIt<AuthCubit>().state.authenticated;
+        final isSignUpPath = state.uri.path == Routes.signUp.path;
 
-        if (!authenticated) {
+        final authenticated = getIt<AuthCubit>().state.authenticated;
+        print('AppRouter ${!authenticated && !isSignUpPath}');
+        if (!authenticated && !isSignUpPath) {
           return Routes.login.path;
         }
         return null;
@@ -51,6 +62,7 @@ class AppRouter {
 
 enum Routes {
   login(name: 'login', path: '/login'),
+  signUp(name: 'sign_up', path: '/sign_up'),
   home(name: 'home', path: '/'),
   profile(name: 'profile', path: 'profile');
 

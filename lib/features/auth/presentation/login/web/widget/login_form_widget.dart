@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_core/modules/router/router.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../../../base/presentation/extension/extension.dart';
 import '../../../../../../base/presentation/extension/input_decoration.dart';
 import '../../../../../../base/presentation/widget/spacing_widgets.dart';
+import 'remember_me_checkbox_widget.dart';
 
 class LoginFormWidget extends StatefulWidget {
   const LoginFormWidget({super.key});
@@ -54,6 +58,21 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                           ),
                         ),
                       ),
+            ),
+            height16,
+            Row(
+              children: [
+                const RememberMeCheckboxWidget(),
+                const Spacer(),
+                TextButton(
+                  onPressed: () {
+                  },
+                  child: Text(
+                    'Forgot password?',
+                    style: context.textTheme.labelSmall,
+                  ),
+                )
+              ],
             ),
             height16,
             Row(

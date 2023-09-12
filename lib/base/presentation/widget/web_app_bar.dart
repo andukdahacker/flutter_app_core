@@ -25,7 +25,7 @@ class WebAppBar extends StatelessWidget implements PreferredSizeWidget {
             width8,
             Text(
               'SPARKLE',
-              style: context.textTheme.displaySmall?.copyWith(
+              style: context.textTheme.titleLarge?.copyWith(
                 color: AppColor.primary,
                 fontWeight: FontWeight.w900,
               ),

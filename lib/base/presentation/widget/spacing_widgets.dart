@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 //width
+const width4 = SizedBox(width: 4);
 const width8 = SizedBox(width: 8);
 
 //height
