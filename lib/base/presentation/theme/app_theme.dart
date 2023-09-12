@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'app_theme_src.dart';
 
-
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
     cardColor: Colors.white,
@@ -10,6 +9,7 @@ class AppTheme {
     textTheme: AppTextTheme.textThemeLight,
     fontFamily: 'Montserrat',
     visualDensity: VisualDensity.adaptivePlatformDensity,
+    inputDecorationTheme: inputDecorationThemeLight,
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColor.primary,
       secondary: AppColor.secondary,
@@ -22,11 +22,28 @@ class AppTheme {
     textTheme: AppTextTheme.textThemeDark,
     fontFamily: 'Montserrat',
     visualDensity: VisualDensity.adaptivePlatformDensity,
+    inputDecorationTheme: inputDecorationThemeDark,
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColor.primary,
       secondary: AppColor.secondary,
       brightness: Brightness.dark,
       error: AppColor.accent,
     ),
+  );
+
+  static InputDecorationTheme inputDecorationThemeLight = InputDecorationTheme(
+    border: const OutlineInputBorder(
+      borderRadius: AppBorderRadius.circular4,
+      borderSide: BorderSide(color: AppColor.gray200, width: 1),
+    ),
+    hintStyle: AppTextTheme.textThemeLight.labelMedium,
+  );
+
+  static InputDecorationTheme inputDecorationThemeDark = InputDecorationTheme(
+    border: const OutlineInputBorder(
+      borderRadius: AppBorderRadius.circular4,
+      borderSide: BorderSide(color: AppColor.gray200, width: 1),
+    ),
+    hintStyle: AppTextTheme.textThemeDark.labelMedium,
   );
 }

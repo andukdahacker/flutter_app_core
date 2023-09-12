@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../../base/presentation/extension/input_decoration.dart';
+import '../../../../../../base/presentation/widget/spacing_widgets.dart';
+
 class LoginFormWidget extends StatefulWidget {
   const LoginFormWidget({super.key});
 
@@ -12,17 +15,60 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
   final TextEditingController _emailTextController = TextEditingController();
   final TextEditingController _passwordTextController = TextEditingController();
 
+  bool _obscureText = true;
+
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _loginFormKey,
-      child: Column(
-        children: [
-          TextFormField(
-            controller: _emailTextController,
-
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Email'),
+            height8,
+            TextFormField(
+              controller: _emailTextController,
+              decoration: const InputDecoration()
+                  .defaultThemeOf(context)
+                  .copyWith(hintText: 'name@gmail.com'),
+            ),
+            height8,
+            const Text('Password'),
+            TextFormField(
+              controller: _passwordTextController,
+              obscureText: _obscureText,
+              decoration:
+                  const InputDecoration().defaultThemeOf(context).copyWith(
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
+                          child: Icon(
+                            _obscureText
+                                ? Icons.visibility_rounded
+                                : Icons.visibility_off_rounded,
+                          ),
+                        ),
+                      ),
+            ),
+            height16,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: const Text('Sign in'),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

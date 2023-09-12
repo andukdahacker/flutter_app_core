@@ -1,8 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../domain/entity/login_data.dart';
+
 part 'login_state.freezed.dart';
 
 @freezed
-class LoginState with _$LoginState {
-  const factory LoginState() = _LoginState;
+sealed class LoginState with _$LoginState {
+  const factory LoginState.initial() = LoginInitial;
+  const factory LoginState.loading() = LoginLoading;
+  const factory LoginState.failed() = LoginFailed;
+  const factory LoginState.success(LoginData loginData) = LoginSuccess;
 }

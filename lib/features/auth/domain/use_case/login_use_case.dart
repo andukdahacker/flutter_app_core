@@ -3,11 +3,11 @@ import 'package:injectable/injectable.dart';
 import '../../../../base/data/models/base_response.dart';
 import '../../../../base/data/models/result.dart';
 import '../../../../base/domain/base_use_case.dart';
-import '../../data/data_source/models/login_model.dart';
+import '../entity/login_data.dart';
 import '../entity/login_input.dart';
 import '../repository/auth_repository.dart';
 
-typedef LoginOutput = Result<BaseResponse<LoginModel>, Exception>;
+typedef LoginOutput = Result<BaseResponse<LoginData>, Exception>;
 
 @injectable
 class LoginUseCase extends UseCase<LoginInput, LoginOutput> {

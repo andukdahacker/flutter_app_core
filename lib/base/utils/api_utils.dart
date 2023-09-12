@@ -8,7 +8,7 @@ import '../presentation/constant/status_code.dart';
 
 FutureOr<void> handleResponse<T>(
   BaseResponse<T> response,
-  Function(T? successData)? onSuccess,
+  Function(T successData)? onSuccess,
 ) {
   final StatusCode statusCode = StatusCode.of(response.status);
 

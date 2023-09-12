@@ -5,6 +5,7 @@ import '../../../../../base/presentation/extension/context_theme.dart';
 import '../../../../../base/presentation/theme/app_theme_src.dart';
 import '../../../../../base/presentation/widget/adaptive_scaffold_widget.dart';
 import '../../../../../base/presentation/widget/web_app_bar.dart';
+import 'widget/login_form_widget.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -41,7 +42,8 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
+              ),
+              const LoginFormWidget(),
             ],
           ),
         ),

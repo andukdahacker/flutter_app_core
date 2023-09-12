@@ -4,9 +4,9 @@ part 'login_input.g.dart';
 
 @JsonSerializable()
 class LoginInput {
-  LoginInput(this.username, this.password);
+  LoginInput(this.email, this.password);
 
-  String username;
+  String email;
   String password;
 
   Map<String, dynamic> toJson() => _$LoginInputToJson(this);
