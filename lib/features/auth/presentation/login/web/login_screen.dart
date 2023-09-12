@@ -30,8 +30,7 @@ class LoginScreen extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  print('LoginScreen.build');
-                  context.push(Routes.signUp.path);
+                  context.go(Routes.signUp.path);
                 },
                 child: RichText(
                   text: TextSpan(

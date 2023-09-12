@@ -49,11 +49,11 @@ class AppRouter {
         ),
       ],
       redirect: (context, state) {
-        final isSignUpPath = state.uri.path == Routes.signUp.path;
-
         final authenticated = getIt<AuthCubit>().state.authenticated;
-        print('AppRouter ${!authenticated && !isSignUpPath}');
-        if (!authenticated && !isSignUpPath) {
+        if (!authenticated) {
+          if (state.uri.path == Routes.signUp.path) {
+            return null;
+          }
           return Routes.login.path;
         }
         return null;
