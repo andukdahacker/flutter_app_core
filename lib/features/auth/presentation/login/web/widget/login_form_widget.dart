@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_core/modules/router/router.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../../../base/presentation/extension/extension.dart';
-import '../../../../../../base/presentation/extension/input_decoration.dart';
 import '../../../../../../base/presentation/widget/spacing_widgets.dart';
+import '../../../../../../modules/di/di.dart';
+import '../../../../domain/entity/login_input.dart';
+import '../../bloc/login_cubit.dart';
 import 'remember_me_checkbox_widget.dart';
 
 class LoginFormWidget extends StatefulWidget {
@@ -34,6 +34,9 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
             height8,
             TextFormField(
               controller: _emailTextController,
+              validator: (email) {
+                return getIt<LoginCubit>().validateEmail(email ?? '');
+              },
               decoration: const InputDecoration()
                   .defaultThemeOf(context)
                   .copyWith(hintText: 'name@gmail.com'),
@@ -43,6 +46,9 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
             TextFormField(
               controller: _passwordTextController,
               obscureText: _obscureText,
+              validator: (password) {
+                return getIt<LoginCubit>().validatePassword(password ?? '');
+              },
               decoration:
                   const InputDecoration().defaultThemeOf(context).copyWith(
                         suffixIcon: GestureDetector(
@@ -65,8 +71,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 const RememberMeCheckboxWidget(),
                 const Spacer(),
                 TextButton(
-                  onPressed: () {
-                  },
+                  onPressed: () {},
                   child: Text(
                     'Forgot password?',
                     style: context.textTheme.labelSmall,
@@ -80,7 +85,11 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final loginInput = LoginInput(_emailTextController.text,
+                          _passwordTextController.text);
+                      await getIt<LoginCubit>().login(loginInput);
+                    },
                     child: const Text('Sign in'),
                   ),
                 ),
