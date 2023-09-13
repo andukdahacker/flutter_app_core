@@ -14,19 +14,6 @@ Dio initDioClient() {
 
   dio.options.baseUrl = 'http://localhost:4000';
 
-  if (!kIsWeb) {
-    if (Platform.isAndroid || Platform.isIOS) {
-      /// Allows https requests for older devices.
-      (dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
-        final HttpClient client = HttpClient();
-        client.badCertificateCallback =
-            (X509Certificate cert, String host, int port) => true;
-
-        return client;
-      };
-    }
-  }
-
   dio.options.connectTimeout = const Duration(seconds: 60);
   dio.options.receiveTimeout = const Duration(seconds: 60);
 
@@ -43,5 +30,17 @@ Dio initDioClient() {
     ),
   );
 
+  if (!kIsWeb) {
+    if (Platform.isAndroid || Platform.isIOS) {
+      /// Allows https requests for older devices.
+      (dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
+        final HttpClient client = HttpClient();
+        client.badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
+
+        return client;
+      };
+    }
+  }
   return dio;
 }
