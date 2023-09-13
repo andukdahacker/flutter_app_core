@@ -1,1 +1,1 @@
-const String loginPath = 'attendance/login';
+const String loginPath = '/auth/login';

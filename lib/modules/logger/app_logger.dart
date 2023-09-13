@@ -1,6 +1,10 @@
 import 'package:injectable/injectable.dart';
 import 'package:logger/logger.dart';
 
+import '../di/di.dart';
+
+final logIt = getIt<AppLogger>().logIt;
+
 @singleton
 class AppLogger {
   final Logger logIt = Logger(

@@ -1,13 +1,18 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_app_core/base/data/data_source/local/storage_key.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'base_interceptor.dart';
 
 
 @injectable
-class AuthInterceptors extends BaseInterceptor {
+class AuthInterceptor extends BaseInterceptor {
+  AuthInterceptor(this._sharedPreferences);
+  final SharedPreferences _sharedPreferences;
+
   @override
   int get priority => BaseInterceptor.accessTokenPriority;
 
@@ -17,7 +22,6 @@ class AuthInterceptors extends BaseInterceptor {
     RequestInterceptorHandler handler,
   ) async {
     /// Add access token to header before request
-
     const Map<String, String> headers = {
       HttpHeaders.acceptHeader: 'application/json',
       HttpHeaders.contentTypeHeader: 'application/json',
@@ -25,11 +29,11 @@ class AuthInterceptors extends BaseInterceptor {
 
     options.headers.addAll(headers);
 
-    // final accessToken = await _localStorage.read(LocalStorageKey.token);
+    final accessToken = _sharedPreferences.getString(LocalStorageKey.token.name);
 
-    // if (accessToken != null && accessToken.isNotEmpty) {
-    //   options.headers['Authorization'] = 'Bearer $accessToken';
-    // }
+    if (accessToken != null && accessToken.isNotEmpty) {
+      options.headers['Authorization'] = 'Bearer $accessToken';
+    }
 
     super.onRequest(options, handler);
   }

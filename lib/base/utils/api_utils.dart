@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 
+import '../../modules/logger/app_logger.dart';
 import '../data/models/base_response.dart';
 import '../exceptions/internal_server_exception.dart';
 import '../presentation/constant/status_code.dart';
@@ -74,7 +75,10 @@ FutureOr<void> handleFailure<E extends Exception>(
   onFailure?.call(exception);
   switch (exception) {
     case FormatException():
+      break;
     case InternalServerException():
-    case DioException():
+      break;
+    case DioException(message: final message):
+      logIt.e(message);
   }
 }

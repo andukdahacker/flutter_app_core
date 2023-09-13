@@ -5,11 +5,14 @@ import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import '../di/di.dart';
 import 'interceptor/auth_interceptor.dart';
 import 'interceptor/connectivity_interceptor.dart';
 
 Dio initDioClient() {
   final dio = Dio();
+
+  dio.options.baseUrl = 'http://localhost:4000';
 
   if (!kIsWeb) {
     if (Platform.isAndroid || Platform.isIOS) {
@@ -28,7 +31,7 @@ Dio initDioClient() {
   dio.options.receiveTimeout = const Duration(seconds: 60);
 
   dio.interceptors.addAll([
-    AuthInterceptors(),
+    getIt<AuthInterceptor>(),
     ConnectivityInterceptor(),
   ]);
 

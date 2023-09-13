@@ -51,6 +51,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               },
               decoration:
                   const InputDecoration().defaultThemeOf(context).copyWith(
+                        errorMaxLines: 2,
                         suffixIcon: GestureDetector(
                           onTap: () {
                             setState(() {
@@ -86,9 +87,13 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () async {
-                      final loginInput = LoginInput(_emailTextController.text,
-                          _passwordTextController.text);
-                      await getIt<LoginCubit>().login(loginInput);
+                      if (_loginFormKey.currentState?.validate() ?? false) {
+                        final loginInput = LoginInput(
+                          _emailTextController.text,
+                          _passwordTextController.text,
+                        );
+                        await getIt<LoginCubit>().login(loginInput);
+                      }
                     },
                     child: const Text('Sign in'),
                   ),
