@@ -7,6 +7,7 @@ import '../../../../../base/exceptions/unauthenticated_exception.dart';
 
 abstract class AuthLocalDatasource {
   String checkAuth();
+
   Future<String> saveAccessToken(String token);
 }
 
@@ -29,9 +30,10 @@ class AuthLocalDatasourceImpl implements AuthLocalDatasource {
 
   @override
   Future<String> saveAccessToken(String token) async {
-    final result = await _sharedPreferences.setString(LocalStorageKey.token.name, token);
+    final result =
+        await _sharedPreferences.setString(LocalStorageKey.token.name, token);
 
-    if(result) {
+    if (result) {
       return token;
     }
 

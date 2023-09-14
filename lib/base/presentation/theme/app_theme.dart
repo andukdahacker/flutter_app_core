@@ -11,6 +11,7 @@ class AppTheme {
     visualDensity: VisualDensity.adaptivePlatformDensity,
     inputDecorationTheme: inputDecorationThemeLight,
     checkboxTheme: checkboxTheme,
+    elevatedButtonTheme: elevatedButtonThemeDataLight,
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColor.primary,
       secondary: AppColor.secondary,
@@ -25,6 +26,7 @@ class AppTheme {
     visualDensity: VisualDensity.adaptivePlatformDensity,
     inputDecorationTheme: inputDecorationThemeDark,
     checkboxTheme: checkboxTheme,
+    elevatedButtonTheme: elevatedButtonThemeDataDark,
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColor.primary,
       secondary: AppColor.secondary,
@@ -47,6 +49,10 @@ class AppTheme {
       borderSide: BorderSide(color: AppColor.gray200, width: 1),
     ),
     hintStyle: AppTextTheme.textThemeDark.labelMedium,
+    constraints: const BoxConstraints(
+      maxWidth: 400,
+      minWidth: 300,
+    ),
   );
 
   static CheckboxThemeData checkboxTheme = const CheckboxThemeData(
@@ -55,5 +61,19 @@ class AppTheme {
       vertical: VisualDensity.minimumDensity,
     ),
     shape: CircleBorder(),
+  );
+
+  static ElevatedButtonThemeData elevatedButtonThemeDataLight =
+      ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      maximumSize: const Size(320, 60),
+    ),
+  );
+
+  static ElevatedButtonThemeData elevatedButtonThemeDataDark =
+      ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      maximumSize: const Size(320, 60),
+    ),
   );
 }

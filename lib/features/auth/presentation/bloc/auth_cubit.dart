@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../base/data/models/result.dart';
 import '../../../../modules/router/router.dart';
+import '../../domain/entity/user.dart';
 import '../../domain/use_case/check_auth_use_case.dart';
 
 part 'auth_state.dart';

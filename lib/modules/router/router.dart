@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/bloc/auth_cubit.dart';
+import '../../features/auth/presentation/forgot_password/web/forgot_password_screen.dart';
 import '../../features/auth/presentation/login/web/login_screen.dart';
 import '../../features/auth/presentation/sign_up/web/sign_up_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
@@ -34,6 +35,14 @@ class AppRouter {
           ),
         ),
         GoRoute(
+          path: Routes.forgotPassword.path,
+          name: Routes.forgotPassword.name,
+          pageBuilder: (context, state) => MaterialPage(
+            key: state.pageKey,
+            child: const ForgotPasswordScreen(),
+          ),
+        ),
+        GoRoute(
           path: Routes.home.path,
           name: Routes.home.name,
           pageBuilder: (context, state) =>
@@ -51,7 +60,8 @@ class AppRouter {
       redirect: (context, state) {
         final authenticated = getIt<AuthCubit>().state.authenticated;
         if (!authenticated) {
-          if (state.uri.path == Routes.signUp.path) {
+          if (state.uri.path == Routes.signUp.path ||
+              state.uri.path == Routes.forgotPassword.path) {
             return null;
           }
           return Routes.login.path;
@@ -63,6 +73,7 @@ class AppRouter {
 enum Routes {
   login(name: 'login', path: '/login'),
   signUp(name: 'sign_up', path: '/sign_up'),
+  forgotPassword(name: 'forgot_password', path: '/forgot_password'),
   home(name: 'home', path: '/'),
   profile(name: 'profile', path: 'profile');
 

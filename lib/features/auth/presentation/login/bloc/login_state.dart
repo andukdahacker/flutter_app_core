@@ -6,8 +6,15 @@ part 'login_state.freezed.dart';
 
 @freezed
 sealed class LoginState with _$LoginState {
-  const factory LoginState.initial() = LoginInitial;
+  const factory LoginState.initial({
+    String? email,
+    String? password,
+    @Default(false) rememberMe,
+  }) = LoginInitial;
+
   const factory LoginState.loading() = LoginLoading;
+
   const factory LoginState.failed() = LoginFailed;
+
   const factory LoginState.success(LoginData loginData) = LoginSuccess;
 }

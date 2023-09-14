@@ -21,7 +21,7 @@ class LoginCubit extends Cubit<LoginState> {
     this._saveAccessTokenUseCase,
     this._validateEmailUseCase,
     this._validatePasswordUseCase,
-  ) : super(const LoginState.initial());
+  ) : super(const LoginState.initial()) {}
 
   final LoginUseCase _loginUseCase;
   final SaveAccessTokenUseCase _saveAccessTokenUseCase;
@@ -45,6 +45,7 @@ class LoginCubit extends Cubit<LoginState> {
           if (saveAccessTokenResult) {
             emit(LoginState.success(successData));
           } else {
+            print('LoginCubit.login failed');
             emit(const LoginState.failed());
           }
         });
@@ -66,7 +67,11 @@ class LoginCubit extends Cubit<LoginState> {
     switch (result) {
       case Success<String, Exception>():
         return true;
-      case Failure<String, Exception>():
+      case Failure<String, Exception>(
+          exception: final exception,
+          stackTrace: final trace
+        ):
+        handleFailure(exception, stackTrace: trace);
         return false;
     }
   }

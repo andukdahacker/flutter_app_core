@@ -10,7 +10,7 @@ part 'login_data.g.dart';
 class LoginData with _$LoginData {
   const factory LoginData({
     @JsonKey(fromJson: User.fromJson) User? user,
-    String? accessToken,
+    @JsonKey(name: 'access_token') String? accessToken,
   }) = _LoginData;
 
   factory LoginData.fromJson(Map<String, dynamic> json) =>
