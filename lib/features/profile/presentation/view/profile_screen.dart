@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_app_core/modules/router/router.dart';
+
+import '../../../../modules/router/router.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

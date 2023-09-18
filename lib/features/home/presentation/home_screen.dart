@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../modules/router/router.dart';
 import '../../auth/presentation/bloc/auth_cubit.dart';
-import '../../auth/presentation/login/bloc/login_cubit.dart';
-import '../../auth/presentation/login/bloc/login_state.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

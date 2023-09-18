@@ -52,7 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ),
           height16,
-          const SignUpFormWidget(),
+          const Center(child: SignUpFormWidget()),
         ],
       ),
     );

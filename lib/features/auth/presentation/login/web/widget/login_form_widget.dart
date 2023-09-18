@@ -38,7 +38,12 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text('Email'),
+              const Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Email'),
+                ],
+              ),
               height8,
               TextFormField(
                 controller: _emailTextController,
@@ -50,7 +55,12 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                     .copyWith(hintText: 'name@gmail.com'),
               ),
               height8,
-              const Text('Password'),
+              const Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Password'),
+                ],
+              ),
               TextFormField(
                 controller: _passwordTextController,
                 obscureText: _obscureText,
@@ -102,7 +112,6 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                           ?.copyWith(),
                       onPressed: () async {
                         if (_loginFormKey.currentState?.validate() ?? false) {
-                          print('_LoginFormWidgetState.build');
                           final loginInput = LoginInput(
                             _emailTextController.text,
                             _passwordTextController.text,
