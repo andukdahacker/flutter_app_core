@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../base/data/models/base_response.dart';
 import '../../../../../base/data/models/result.dart';
 import '../../../../../base/utils/api_utils.dart';
+import '../../../../../modules/router/router.dart';
 import '../../../domain/entity/login_data.dart';
 import '../../../domain/entity/login_input.dart';
 import '../../../domain/use_case/login_use_case.dart';
@@ -45,7 +47,6 @@ class LoginCubit extends Cubit<LoginState> {
           if (saveAccessTokenResult) {
             emit(LoginState.success(successData));
           } else {
-            print('LoginCubit.login failed');
             emit(const LoginState.failed());
           }
         });
@@ -56,7 +57,7 @@ class LoginCubit extends Cubit<LoginState> {
         ):
         handleFailure(exception, stackTrace: stackTrace,
             onFailure: (exception) {
-          emit(const LoginState.failed());
+          emit(const LoginState.failed(message: 'Log in failed'));
         });
     }
   }

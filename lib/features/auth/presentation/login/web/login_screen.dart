@@ -6,6 +6,7 @@ import '../../../../../base/presentation/extension/context_screen_size.dart';
 import '../../../../../base/presentation/extension/context_theme.dart';
 import '../../../../../base/presentation/theme/app_theme_src.dart';
 import '../../../../../base/presentation/widget/web_app_bar.dart';
+import '../../../../../base/utils/snack_bar_utils.dart';
 import '../../../../../modules/di/di.dart';
 import '../../../../../modules/router/router.dart';
 import '../bloc/login_cubit.dart';
@@ -24,6 +25,12 @@ class LoginScreen extends StatelessWidget {
           switch (state) {
             case LoginSuccess():
               context.go(Routes.home.path);
+              break;
+            case LoginFailed(message: final message):
+              SnackBarUtils.showErrorSnackBar(
+                content: message ?? 'Log in failed',
+                context: context,
+              );
               break;
             default:
               break;

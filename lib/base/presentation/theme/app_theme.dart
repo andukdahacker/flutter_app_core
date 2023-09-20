@@ -12,6 +12,7 @@ class AppTheme {
     inputDecorationTheme: inputDecorationThemeLight,
     checkboxTheme: checkboxTheme,
     elevatedButtonTheme: elevatedButtonThemeDataLight,
+    snackBarTheme: snackBarThemeDataLight,
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColor.primary,
       secondary: AppColor.secondary,
@@ -27,6 +28,7 @@ class AppTheme {
     inputDecorationTheme: inputDecorationThemeDark,
     checkboxTheme: checkboxTheme,
     elevatedButtonTheme: elevatedButtonThemeDataDark,
+    snackBarTheme: snackBarThemeDataDark,
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColor.primary,
       secondary: AppColor.secondary,
@@ -75,5 +77,19 @@ class AppTheme {
     style: ElevatedButton.styleFrom(
       maximumSize: const Size(320, 60),
     ),
+  );
+
+  static SnackBarThemeData snackBarThemeDataLight = const SnackBarThemeData(
+    shape: RoundedRectangleBorder(
+      borderRadius: AppBorderRadius.circular8,
+    ),
+    behavior: SnackBarBehavior.floating,
+  );
+
+  static SnackBarThemeData snackBarThemeDataDark = const SnackBarThemeData(
+    shape: RoundedRectangleBorder(
+      borderRadius: AppBorderRadius.circular8,
+    ),
+    behavior: SnackBarBehavior.floating,
   );
 }
