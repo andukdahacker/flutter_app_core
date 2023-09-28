@@ -10,8 +10,10 @@ import '../../../../../base/utils/api_utils.dart';
 import '../../../../../modules/router/router.dart';
 import '../../../domain/entity/login_data.dart';
 import '../../../domain/entity/login_input.dart';
+import '../../../domain/entity/user.dart';
 import '../../../domain/use_case/login_use_case.dart';
 import '../../../domain/use_case/save_access_token_use_case.dart';
+import '../../../domain/use_case/save_user_use_case.dart';
 import '../../../domain/use_case/validate_email_use_case.dart';
 import '../../../domain/use_case/validate_password_use_case.dart';
 import 'login_state.dart';
@@ -23,12 +25,14 @@ class LoginCubit extends Cubit<LoginState> {
     this._saveAccessTokenUseCase,
     this._validateEmailUseCase,
     this._validatePasswordUseCase,
-  ) : super(const LoginState.initial()) {}
+    this._saveUserUseCase,
+  ) : super(const LoginState.initial());
 
   final LoginUseCase _loginUseCase;
   final SaveAccessTokenUseCase _saveAccessTokenUseCase;
   final ValidateEmailUseCase _validateEmailUseCase;
   final ValidatePasswordUseCase _validatePasswordUseCase;
+  final SaveUserUseCase _saveUserUseCase;
 
   Future<void> login(LoginInput loginInput) async {
     if (state is LoginLoading) {
@@ -75,6 +79,15 @@ class LoginCubit extends Cubit<LoginState> {
         handleFailure(exception, stackTrace: trace);
         return false;
     }
+  }
+
+  Future<bool> saveUser(User user) async {
+    final result = await _saveUserUseCase.execute(user);
+
+    return switch (result) {
+      Success<User, Exception>() => true,
+      Failure<User, Exception>() => false,
+    };
   }
 
   String? validateEmail(String email) {

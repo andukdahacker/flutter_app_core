@@ -24,6 +24,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
   final TextEditingController _passwordTextController = TextEditingController();
 
   bool _obscureText = true;
+  bool rememberMe = false;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +88,14 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               height16,
               Row(
                 children: [
-                  const RememberMeCheckboxWidget(),
+                  RememberMeCheckboxWidget(
+                    rememberMeValue: rememberMe,
+                    onChanged: (value) {
+                      setState(() {
+                        rememberMe = !value;
+                      });
+                    },
+                  ),
                   const Spacer(),
                   TextButton(
                     onPressed: () {
@@ -115,6 +123,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                           final loginInput = LoginInput(
                             _emailTextController.text,
                             _passwordTextController.text,
+                            rememberMe,
                           );
                           await getIt<LoginCubit>().login(loginInput);
                         }

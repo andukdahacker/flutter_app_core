@@ -4,7 +4,11 @@ import '../../../../../../base/presentation/extension/extension.dart';
 import '../../../../../../base/presentation/widget/spacing_widgets.dart';
 
 class RememberMeCheckboxWidget extends StatefulWidget {
-  const RememberMeCheckboxWidget({super.key});
+  const RememberMeCheckboxWidget(
+      {required this.rememberMeValue, this.onChanged, super.key});
+
+  final bool rememberMeValue;
+  final void Function(bool)? onChanged;
 
   @override
   State<RememberMeCheckboxWidget> createState() =>
@@ -12,19 +16,15 @@ class RememberMeCheckboxWidget extends StatefulWidget {
 }
 
 class _RememberMeCheckboxWidgetState extends State<RememberMeCheckboxWidget> {
-  bool value = false;
-
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Checkbox(
-            value: value,
-            onChanged: (newValue) {
-              if (newValue != null) {
-                setState(() {
-                  value = newValue;
-                });
+            value: widget.rememberMeValue,
+            onChanged: (value) {
+              if (widget.onChanged != null && value != null) {
+                widget.onChanged?.call(value);
               }
             }),
         width4,
