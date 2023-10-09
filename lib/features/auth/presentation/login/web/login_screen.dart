@@ -37,7 +37,7 @@ class LoginScreen extends StatelessWidget {
           }
         },
         child: Scaffold(
-          appBar: WebAppBar(
+          appBar: AppBarWebWidget(
             height: context.screenHeight,
           ),
           body: Column(

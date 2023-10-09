@@ -20,7 +20,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WebAppBar(height: context.screenHeight),
+      appBar: AppBarWebWidget(height: context.screenHeight),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

@@ -47,8 +47,9 @@ class LoginCubit extends Cubit<LoginState> {
       case Success<BaseResponse<LoginData>, Exception>(value: final value):
         handleResponse(value, (successData) async {
           final saveAccessTokenResult =
-              await saveAccessToken(successData.accessToken ?? '');
-          if (saveAccessTokenResult) {
+              await saveAccessToken(successData.accessToken);
+          final saveUserResult = await saveUser(successData.user);
+          if (saveAccessTokenResult && saveUserResult) {
             emit(LoginState.success(successData));
           } else {
             emit(const LoginState.failed());

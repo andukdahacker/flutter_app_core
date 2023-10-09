@@ -9,8 +9,8 @@ part 'login_data.g.dart';
 @freezed
 class LoginData with _$LoginData {
   const factory LoginData({
-    @JsonKey(fromJson: User.fromJson) User? user,
-    @JsonKey(name: 'access_token') String? accessToken,
+    @JsonKey(fromJson: User.fromJson) required User user,
+    @JsonKey(name: 'access_token') required String accessToken,
   }) = _LoginData;
 
   factory LoginData.fromJson(Map<String, dynamic> json) =>

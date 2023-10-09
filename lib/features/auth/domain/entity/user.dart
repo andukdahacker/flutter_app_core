@@ -9,10 +9,10 @@ part 'user.g.dart';
 @freezed
 class User with _$User {
   const factory User({
-    String? id,
-    String? username,
-    String? email,
-    bool? isVerified,
+    required String id,
+    required String username,
+    required String email,
+    required bool isVerified,
     String? avatar,
     int? createdAt,
     int? updatedAt,
