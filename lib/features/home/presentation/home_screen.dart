@@ -4,7 +4,10 @@ import 'package:go_router/go_router.dart';
 
 import '../../../base/presentation/extension/extension.dart';
 import '../../../base/presentation/widget/web_app_bar.dart';
+import '../../../modules/router/router.dart';
 import '../../auth/presentation/bloc/auth_cubit.dart';
+import 'widget/menu_drawer_widget.dart';
+import 'widget/search_bar_widget.dart';
 import 'widget/suggested_search_keys_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,7 +18,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,32 +25,12 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBarWebWidget(
         height: context.screenHeight,
       ),
-      body: Center(
+      endDrawer: const MenuDrawerWidget(),
+      body: Padding(
+        padding: const EdgeInsets.all(24.0),
         child: Column(
           children: [
-            SearchAnchor(builder: (context, controller) {
-              return SearchBar(
-                controller: searchController,
-                onTap: () {
-                  controller.openView();
-                },
-                onChanged: (_) {
-                  controller.openView();
-                },
-                leading: Icon(Icons.search_rounded),
-              );
-            }, suggestionsBuilder: (context, controller) {
-              return List.generate(
-                  5,
-                  (index) => ListTile(
-                        title: Text('item $index'),
-                        onTap: () {
-                          setState(() {
-                            controller.closeView('$index');
-                          });
-                        },
-                      ));
-            }),
+            SearchBarWidget(),
             SuggestedSearchKeyWidget()
           ],
         ),

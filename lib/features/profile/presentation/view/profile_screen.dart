@@ -12,7 +12,7 @@ class ProfileScreen extends StatelessWidget {
       body: Center(
         child: TextButton(
           onPressed: () {
-            context.goNamed(Routes.login.name);
+            context.goNamed(Routes.home.name);
           },
           child: const Text('Back to home'),
         ),

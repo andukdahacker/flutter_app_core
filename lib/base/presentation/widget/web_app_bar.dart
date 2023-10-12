@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../features/auth/presentation/bloc/auth_cubit.dart';
+import '../../../modules/router/router.dart';
 import '../extension/context_theme.dart';
 import '../extension/extension.dart';
 import '../resources/asset_paths/icons_paths.dart';
 import '../theme/app_color.dart';
-import 'search_bar_widget.dart';
 import 'spacing_widgets.dart';
 import 'theme_switch_widget.dart';
 
@@ -68,7 +68,7 @@ class _AuthenticatedAppBarWebWidget extends StatelessWidget {
             const Spacer(),
             width16,
             ElevatedButton(onPressed: () {}, child: Text('Create a job')),
-            const Row(
+            Row(
               children: [
                 Icon(
                   Icons.chat_bubble_outline_rounded,
@@ -78,7 +78,11 @@ class _AuthenticatedAppBarWebWidget extends StatelessWidget {
                   Icons.notifications_none_rounded,
                 ),
                 width16,
-                Icon(Icons.menu_rounded)
+                InkWell(
+                    onTap: () {
+                      Scaffold.of(context).openEndDrawer();
+                    },
+                    child: Icon(Icons.menu_rounded))
               ],
             ),
           ],
