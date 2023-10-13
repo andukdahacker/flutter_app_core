@@ -7,6 +7,7 @@ import '../../domain/entity/user.dart';
 import '../../domain/repository/auth_repository.dart';
 import '../../domain/use_case/check_auth_use_case.dart';
 import '../../domain/use_case/login_use_case.dart';
+import '../../domain/use_case/refresh_token_use_case.dart';
 import '../../domain/use_case/save_access_token_use_case.dart';
 import '../../domain/use_case/save_user_use_case.dart';
 import '../data_source/local/auth_local_datasource.dart';
@@ -68,6 +69,16 @@ class AuthRepositoryImpl extends AuthRepository {
       final user = await _authLocalDatasource.saveUser(userInput);
 
       return Success(user);
+    } on Exception catch (e, trace) {
+      return Failure(e, stackTrace: trace);
+    }
+  }
+
+  @override
+  Future<RefreshTokenOutput> refreshToken() async {
+    try {
+      final accessToken = await _networkDatasource.refreshToken();
+      return Success(accessToken);
     } on Exception catch (e, trace) {
       return Failure(e, stackTrace: trace);
     }

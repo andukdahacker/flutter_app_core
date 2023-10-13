@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../modules/di/di.dart';
+import '../bloc/search/home_search_bloc.dart';
 
 enum SearchType {
   tutor('Tutors'),
@@ -60,7 +64,8 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         suggestionsBuilder: (context, controller) {
           return List.generate(
               5,
-              (index) => ListTile(
+                  (index) =>
+                  ListTile(
                     title: Text('item $index'),
                     onTap: () {
                       setState(() {

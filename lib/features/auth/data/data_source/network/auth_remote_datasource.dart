@@ -8,6 +8,7 @@ import 'end_point.dart';
 
 abstract class AuthRemoteDatasource {
   Future<BaseResponse<LoginData>> login(LoginInput input);
+  Future<BaseResponse<String>> refreshToken();
 }
 
 @Injectable(as: AuthRemoteDatasource)
@@ -22,5 +23,12 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
 
     return BaseResponse.fromJson(
         result.data, (p0) => LoginData.fromJson(p0 as Map<String, dynamic>));
+  }
+
+  @override
+  Future<BaseResponse<String>> refreshToken() async {
+    final result = await _dio.post(refreshTokenPath);
+
+    return BaseResponse.fromJson(result.data, (p0) => p0 as String);
   }
 }

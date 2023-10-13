@@ -23,6 +23,8 @@ class Job with _$Job {
     int? updatedAt,
   }) = _Job;
 
+  const Job._();
+
   factory Job.fromJson(Map<String, Object?> json) => _$JobFromJson(json);
 
   JobType get type => JobType.of(jobType);

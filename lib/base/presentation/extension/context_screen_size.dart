@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 extension BuildContextScreenSize on BuildContext {
-  Size get screenSize => MediaQuery.of(this).size;
+  Size get screenSize => MediaQuery.sizeOf(this);
 
   double get screenWidth => screenSize.width;
 

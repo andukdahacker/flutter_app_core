@@ -1,0 +1,1 @@
+const searchJobPath = '/job';

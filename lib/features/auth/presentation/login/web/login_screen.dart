@@ -24,7 +24,8 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           switch (state) {
             case LoginSuccess():
-              context.go(Routes.home.path);
+              print('LoginScreen.build ${state}');
+              context.go('/');
               break;
             case LoginFailed(message: final message):
               SnackBarUtils.showErrorSnackBar(
