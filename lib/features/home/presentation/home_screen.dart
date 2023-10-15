@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import '../../../base/presentation/extension/extension.dart';
 import '../../../base/presentation/widget/web_app_bar.dart';
 import '../../../modules/di/di.dart';
-import '../../../modules/router/router.dart';
 import '../../auth/presentation/bloc/auth_cubit.dart';
 import 'bloc/home_cubit.dart';
 import 'bloc/search/home_search_bloc.dart';
@@ -49,22 +48,20 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(24.0),
             child: Column(
               children: [
-                SearchBarWidget(),
-                SuggestedSearchKeyWidget(),
+                const SearchBarWidget(),
+                const SuggestedSearchKeyWidget(),
                 BlocBuilder<HomeSearchBloc, HomeSearchState>(
-                    builder: (context, state) {
-                  return switch (state) {
-                    HomeSearchStateEmpty() => Text('Empty'),
-                    HomeSearchStateLoading() => CircularProgressIndicator(),
+                    builder: (context, state) => switch (state) {
+                    HomeSearchStateEmpty() => const Text('Empty'),
+                    HomeSearchStateLoading() => const CircularProgressIndicator(),
                     SearchJobStateSuccess(jobs: final jobs) => Expanded(
                         child: ListView.builder(
-                          itemBuilder: (context, index) => Placeholder(),
+                          itemBuilder: (context, index) => const Placeholder(),
                           itemCount: jobs.length,
                         ),
                       ),
                     HomeSearchStateError(error: final error) => Text(error),
-                  };
-                }),
+                  }),
               ],
             ),
           ),
