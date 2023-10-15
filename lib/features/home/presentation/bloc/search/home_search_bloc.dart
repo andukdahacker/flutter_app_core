@@ -26,11 +26,17 @@ class HomeSearchBloc extends Bloc<HomeSearchEvent, HomeSearchState> {
     final result = await _searchJobUseCase.execute(searchString);
 
     switch (result) {
-      case Success<BaseResponse<List<Job>>, Exception>(value: final value):
+      case Success(value: final value):
         handleResponse(
-            value, (successData) => emit(SearchJobStateSuccess(successData)));
+            value, (successData) {
+              if(successData.nodes.isEmpty) {
+                emit(HomeSearchStateEmpty());
+              } else {
+                emit(SearchJobStateSuccess(successData.nodes));
+              }
+            });
         break;
-      case Failure<BaseResponse<List<Job>>, Exception>(
+      case Failure(
           exception: final exception,
           stackTrace: final stackTrace
         ):

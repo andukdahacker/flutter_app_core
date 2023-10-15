@@ -13,19 +13,19 @@ class Job with _$Job {
     required String learnerId,
     required String subjectId,
     required String title,
-    required num fee,
-    required int createdAt,
+    String? fee,
+    required String createdAt,
     required String jobType,
     required String jobMethod,
     required String jobStatus,
     String? description,
     int? numberOfSession,
-    int? updatedAt,
+    String? updatedAt,
   }) = _Job;
 
   const Job._();
 
-  factory Job.fromJson(Map<String, Object?> json) => _$JobFromJson(json);
+  factory Job.fromJson(Map<String, dynamic> json) => _$JobFromJson(json);
 
   JobType get type => JobType.of(jobType);
 }

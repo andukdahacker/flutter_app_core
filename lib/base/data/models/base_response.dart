@@ -1,10 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'base_response.g.dart';
-
-@JsonSerializable(genericArgumentFactories: true)
 class BaseResponse<T> {
-  @JsonKey(name: 'statusCode') int status;
+  @JsonKey(name: 'statusCode')
+  int status;
   T data;
   String? message;
 
@@ -12,13 +10,21 @@ class BaseResponse<T> {
 
   factory BaseResponse.fromJson(
     Map<String, dynamic> json,
-    T Function(Object?) fromJsonT,
+    T Function(Map<String, dynamic>) fromJsonT,
   ) =>
-      _$BaseResponseFromJson<T>(json, fromJsonT);
+      BaseResponse<T>(
+        status: json['statusCode'] as int,
+        data: fromJsonT(json['data']),
+        message: json['message'] as String?,
+      );
 
   Map<String, dynamic> toJson(
     BaseResponse<T> instance,
     Map<String, dynamic>? Function(T value) toJsonT,
   ) =>
-      _$BaseResponseToJson(instance, (value) => toJsonT);
+      <String, dynamic>{
+        'statusCode': instance.status,
+        'data': toJsonT(instance.data),
+        'message': instance.message,
+      };
 }

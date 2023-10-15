@@ -17,7 +17,8 @@ part 'auth_cubit.freezed.dart';
 
 @lazySingleton
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit(this._checkAuthUseCase, this._refreshTokenUseCase) : super(const AuthState());
+  AuthCubit(this._checkAuthUseCase, this._refreshTokenUseCase)
+      : super(const AuthState());
 
   final CheckAuthUseCase _checkAuthUseCase;
   final RefreshTokenUseCase _refreshTokenUseCase;
@@ -34,13 +35,15 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> refreshToken() async {
+  Future<String?> refreshToken() async {
     final result = await _refreshTokenUseCase.execute();
 
-    switch(result) {
+    switch (result) {
       case Success<BaseResponse<String>, Exception>(value: final value):
+        return value.data;
       case Failure<BaseResponse<String>, Exception>():
-        // TODO: Handle this case.
+        emit(state.copyWith(authenticated: false));
+        return null;
     }
   }
 }

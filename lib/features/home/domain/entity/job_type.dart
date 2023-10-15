@@ -1,7 +1,7 @@
 enum JobType {
   unknown('unknown'),
   qa('QA'),
-  tutor('Tutor');
+  tutor('TUTOR');
 
   final String value;
 

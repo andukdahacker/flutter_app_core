@@ -65,6 +65,10 @@ class AppRouter {
             return null;
           }
           return Routes.login.path;
+        } else {
+          if(state.uri.path == Routes.login.path) {
+            return Routes.home.path;
+          }
         }
         return null;
       });

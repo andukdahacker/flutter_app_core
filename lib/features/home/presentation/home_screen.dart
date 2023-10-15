@@ -28,16 +28,25 @@ class _HomeScreenState extends State<HomeScreen> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => getIt<HomeCubit>()),
-        BlocProvider(create: (context) => getIt<HomeSearchBloc>()..add(const SearchTextChanged('')))
+        BlocProvider(
+            create: (context) =>
+                getIt<HomeSearchBloc>()..add(const SearchTextChanged('')))
       ],
-      child: Scaffold(
-        appBar: AppBarWebWidget(
-          height: context.screenHeight,
-        ),
-        endDrawer: const MenuDrawerWidget(),
-        body: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: SingleChildScrollView(
+      child: BlocListener<AuthCubit, AuthState>(
+        listenWhen: (previous, current) =>
+            previous.authenticated != current.authenticated,
+        listener: (context, state) {
+          if (!state.authenticated) {
+            context.go('/login');
+          }
+        },
+        child: Scaffold(
+          appBar: AppBarWebWidget(
+            height: context.screenHeight,
+          ),
+          endDrawer: const MenuDrawerWidget(),
+          body: Padding(
+            padding: const EdgeInsets.all(24.0),
             child: Column(
               children: [
                 SearchBarWidget(),
@@ -55,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     HomeSearchStateError(error: final error) => Text(error),
                   };
-                })
+                }),
               ],
             ),
           ),

@@ -3,12 +3,13 @@ import 'dart:async';
 import 'package:injectable/injectable.dart';
 
 import '../../../../base/data/models/base_response.dart';
+import '../../../../base/data/models/paginated.dart';
 import '../../../../base/data/models/result.dart';
 import '../../../../base/domain/base_use_case.dart';
 import '../entity/job.dart';
 import '../repository/home_repository.dart';
 
-typedef SearchJobOutput = Result<BaseResponse<List<Job>>, Exception>;
+typedef SearchJobOutput = Result<BaseResponse<Paginated<Job>>, Exception>;
 
 @injectable
 class SearchJobUseCase extends UseCase<String, SearchJobOutput> {
