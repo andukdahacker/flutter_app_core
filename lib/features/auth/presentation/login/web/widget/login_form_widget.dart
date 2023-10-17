@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_core/modules/router/router.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../../base/presentation/extension/extension.dart';
@@ -8,7 +7,6 @@ import '../../../../../../base/presentation/widget/spacing_widgets.dart';
 import '../../../../../../modules/di/di.dart';
 import '../../../../domain/entity/login_input.dart';
 import '../../bloc/login_cubit.dart';
-import '../../bloc/login_state.dart';
 import 'remember_me_checkbox_widget.dart';
 
 class LoginFormWidget extends StatefulWidget {

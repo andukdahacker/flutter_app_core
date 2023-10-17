@@ -51,6 +51,7 @@ class LoginCubit extends Cubit<LoginState> {
           final saveUserResult = await saveUser(successData.user);
           if (saveAccessTokenResult && saveUserResult) {
             emit(LoginState.success(successData));
+            AppRouter.router.go('/');
           } else {
             emit(const LoginState.failed());
           }

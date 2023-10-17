@@ -58,6 +58,7 @@ class AppRouter {
         ),
       ],
       redirect: (context, state) {
+        getIt<AuthCubit>().checkAuth();
         final authenticated = getIt<AuthCubit>().state.authenticated;
         if (!authenticated) {
           if (state.uri.path == Routes.signUp.path ||

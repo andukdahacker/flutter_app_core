@@ -20,61 +20,43 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<LoginCubit>(
       create: (context) => getIt<LoginCubit>(),
-      child: BlocListener<LoginCubit, LoginState>(
-        listener: (context, state) {
-          switch (state) {
-            case LoginSuccess():
-              print('LoginScreen.build ${state}');
-              context.go('/');
-              break;
-            case LoginFailed(message: final message):
-              SnackBarUtils.showErrorSnackBar(
-                content: message ?? 'Log in failed',
-                context: context,
-              );
-              break;
-            default:
-              break;
-          }
-        },
-        child: Scaffold(
-          appBar: AppBarWebWidget(
-            height: context.screenHeight,
-          ),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'Sign in to your account',
-                style: context.textTheme.titleMedium?.copyWith(
-                    color: AppColor.primary, fontWeight: FontWeight.w700),
-              ),
-              InkWell(
-                onTap: () {
-                  context.go(Routes.signUp.path);
-                },
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Or ',
-                    style: context.textTheme.labelLarge,
-                    children: [
-                      TextSpan(
-                        text: 'Create a new account',
-                        style: context.textTheme.labelLarge?.copyWith(
-                          color: AppColor.primary,
-                          decoration: TextDecoration.underline,
-                          decorationStyle: TextDecorationStyle.solid,
-                          decorationThickness: 2,
-                        ),
+      child: Scaffold(
+        appBar: AppBarWebWidget(
+          height: context.screenHeight,
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Sign in to your account',
+              style: context.textTheme.titleMedium?.copyWith(
+                  color: AppColor.primary, fontWeight: FontWeight.w700),
+            ),
+            InkWell(
+              onTap: () {
+                context.go(Routes.signUp.path);
+              },
+              child: RichText(
+                text: TextSpan(
+                  text: 'Or ',
+                  style: context.textTheme.labelLarge,
+                  children: [
+                    TextSpan(
+                      text: 'Create a new account',
+                      style: context.textTheme.labelLarge?.copyWith(
+                        color: AppColor.primary,
+                        decoration: TextDecoration.underline,
+                        decorationStyle: TextDecorationStyle.solid,
+                        decorationThickness: 2,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              const Center(child: LoginFormWidget()),
-            ],
-          ),
+            ),
+            const Center(child: LoginFormWidget()),
+          ],
         ),
       ),
     );

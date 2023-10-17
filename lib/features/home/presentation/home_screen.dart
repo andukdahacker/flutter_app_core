@@ -10,6 +10,7 @@ import 'bloc/home_cubit.dart';
 import 'bloc/search/home_search_bloc.dart';
 import 'bloc/search/home_search_event.dart';
 import 'bloc/search/home_search_state.dart';
+import 'widget/job_card_widget.dart';
 import 'widget/menu_drawer_widget.dart';
 import 'widget/search_bar_widget.dart';
 import 'widget/suggested_search_keys_widget.dart';
@@ -44,26 +45,36 @@ class _HomeScreenState extends State<HomeScreen> {
             height: context.screenHeight,
           ),
           endDrawer: const MenuDrawerWidget(),
-          body: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              children: [
-                const SearchBarWidget(),
-                const SuggestedSearchKeyWidget(),
-                BlocBuilder<HomeSearchBloc, HomeSearchState>(
-                    builder: (context, state) => switch (state) {
-                    HomeSearchStateEmpty() => const Text('Empty'),
-                    HomeSearchStateLoading() => const CircularProgressIndicator(),
-                    SearchJobStateSuccess(jobs: final jobs) => Expanded(
-                        child: ListView.builder(
-                          itemBuilder: (context, index) => const Placeholder(),
-                          itemCount: jobs.length,
-                        ),
-                      ),
-                    HomeSearchStateError(error: final error) => Text(error),
-                  }),
-              ],
-            ),
+          body: Column(
+            children: [
+              const SearchBarWidget(),
+              const SuggestedSearchKeyWidget(),
+              BlocBuilder<HomeSearchBloc, HomeSearchState>(
+                  builder: (context, state) => switch (state) {
+                        HomeSearchStateEmpty() => const Text('Empty'),
+                        HomeSearchStateLoading() =>
+                          const CircularProgressIndicator(),
+                        SearchJobStateSuccess(jobs: final jobs) => Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+                              child: GridView.builder(
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                        crossAxisSpacing: 36,
+                                        childAspectRatio: 3 / 2,
+                                        mainAxisSpacing: 36),
+                                itemBuilder: (context, index) => JobCardWidget(
+                                  job: jobs[index],
+                                ),
+                                itemCount: jobs.length,
+                              ),
+                            ),
+                          ),
+                        HomeSearchStateError(error: final error) =>
+                          Text(error),
+                      }),
+            ],
           ),
         ),
       ),

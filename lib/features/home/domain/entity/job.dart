@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'job_type.dart';
+import 'subject.dart';
 
 part 'job.g.dart';
 
@@ -12,6 +13,7 @@ class Job with _$Job {
     required String id,
     required String learnerId,
     required String subjectId,
+    @JsonKey(fromJson: Subject.fromJson) required Subject subject,
     required String title,
     String? fee,
     required String createdAt,
