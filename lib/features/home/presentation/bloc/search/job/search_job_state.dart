@@ -4,27 +4,24 @@ import '../../../../domain/entity/job.dart';
 import '../../../../domain/entity/tutor.dart';
 import '../../../widget/search_bar_widget.dart';
 
-sealed class HomeSearchState extends Equatable {
-  const HomeSearchState();
+sealed class SearchJobState extends Equatable {
+  const SearchJobState();
 
   @override
   List<Object?> get props => [];
 }
 
-final class HomeSearchStateEmpty extends HomeSearchState {}
+final class SearchJobStateEmpty extends SearchJobState {}
 
-final class HomeSearchJobStateLoading extends HomeSearchState {
-  final SearchType searchType;
+final class SearchJobStateLoading extends SearchJobState {
 
-  const HomeSearchJobStateLoading(this.searchType);
+  const SearchJobStateLoading();
 
   @override
-  List<Object?> get props => [searchType];
+  List<Object?> get props => [];
 }
 
-
-
-final class SearchJobStateSuccess extends HomeSearchState {
+final class SearchJobStateSuccess extends SearchJobState {
   const SearchJobStateSuccess(this.jobs);
 
   final List<Job> jobs;
@@ -33,17 +30,8 @@ final class SearchJobStateSuccess extends HomeSearchState {
   List<Object?> get props => [...super.props, jobs];
 }
 
-final class SearchTutorStateSuccess extends HomeSearchState {
-  const SearchTutorStateSuccess(this.tutors);
-
-  final List<Tutor> tutors;
-
-  @override
-  List<Object?> get props => [...super.props, tutors];
-}
-
-final class HomeSearchStateError extends HomeSearchState {
-  const HomeSearchStateError(this.error);
+final class SearchJobStateError extends SearchJobState {
+  const SearchJobStateError(this.error);
 
   final String error;
 

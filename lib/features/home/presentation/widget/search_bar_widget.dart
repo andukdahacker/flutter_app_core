@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../modules/di/di.dart';
-import '../bloc/search/home_search_bloc.dart';
+import '../bloc/home_cubit.dart';
+import '../bloc/home_state.dart';
+import '../bloc/search/job/search_job_bloc.dart';
+import '../bloc/search/job/search_job_event.dart';
+import '../bloc/search/suggestion/suggestion_bloc.dart';
+import '../bloc/search/suggestion/suggestion_event.dart';
+import '../bloc/search/suggestion/suggestion_state.dart';
+import '../bloc/search/tutor/search_tutor_bloc.dart';
+import '../bloc/search/tutor/search_tutor_event.dart';
+import 'suggested_search_keys_widget.dart';
 
 enum SearchType {
   tutor('Tutors'),
@@ -22,59 +31,80 @@ class SearchBarWidget extends StatefulWidget {
 
 class _SearchBarWidgetState extends State<SearchBarWidget> {
   final TextEditingController searchController = TextEditingController();
-  SearchType _searchType = SearchType.tutor;
+
+  List<Widget> suggestionWidgets = [];
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 600,
-      child: SearchAnchor(
-        builder: (context, controller) {
-          return SearchBar(
-            controller: searchController,
-            onTap: () {
-              controller.openView();
-            },
-            onChanged: (_) {
-              controller.openView();
-            },
-            leading: const Icon(Icons.search_rounded),
-            trailing: [
-              DropdownMenu(
-                  inputDecorationTheme: const InputDecorationTheme(
-                    border: InputBorder.none,
-                  ),
-                  initialSelection: _searchType,
-                  onSelected: (value) {
-                    if (value != null) {
-                      setState(() {
-                        _searchType = value;
-                      });
-                    }
-                  },
-                  dropdownMenuEntries: SearchType.values
-                      .map((e) => DropdownMenuEntry(value: e, label: e.value))
-                      .toList())
-            ],
-          );
-        },
-        viewConstraints: BoxConstraints(
-          maxHeight: 600,
-        ),
-        suggestionsBuilder: (context, controller) {
-          return List.generate(
-              5,
-                  (index) =>
-                  ListTile(
-                    title: Text('item $index'),
-                    onTap: () {
-                      setState(() {
-                        controller.closeView('$index');
-                      });
+    return Column(
+      children: [
+        ConstrainedBox(
+          constraints: const BoxConstraints(
+            minWidth: 300,
+            maxWidth: 600,
+          ),
+          child: SearchAnchor(
+              builder: (context, controller) => SearchBar(
+                    controller: searchController,
+                    onChanged: (_) {
+                      getIt<SuggestionBloc>()
+                          .add(SuggestionTextChanged(searchController.text));
                     },
-                  ));
-        },
-      ),
+                    onSubmitted: (value) {
+                      final searchType = getIt<HomeCubit>().state.searchType;
+
+                      switch (searchType) {
+                        case SearchType.tutor:
+                          getIt<SearchTutorBloc>()
+                              .add(SearchTutorTextChanged(value));
+                        case SearchType.job:
+                          getIt<SearchJobBloc>()
+                              .add(SearchJobTextChanged(value));
+                      }
+                    },
+                    leading: const Icon(Icons.search_rounded),
+                    trailing: [
+                      BlocBuilder<HomeCubit, HomeState>(
+                        builder: (context, state) {
+                          return DropdownMenu(
+                              inputDecorationTheme: const InputDecorationTheme(
+                                border: InputBorder.none,
+                              ),
+                              initialSelection: state.searchType,
+                              onSelected: (value) {
+                                if (value != null) {
+                                  getIt<HomeCubit>().changeSearchType(value);
+                                  switch (value) {
+                                    case SearchType.tutor:
+                                      getIt<SearchTutorBloc>().add(
+                                          const SearchTutorTextChanged(''));
+                                    case SearchType.job:
+                                      getIt<SearchJobBloc>()
+                                          .add(const SearchJobTextChanged(''));
+                                  }
+                                }
+                              },
+                              requestFocusOnTap: false,
+                              dropdownMenuEntries: SearchType.values
+                                  .map((e) => DropdownMenuEntry(
+                                      value: e, label: e.value))
+                                  .toList());
+                        },
+                      )
+                    ],
+                  ),
+              viewConstraints: const BoxConstraints(
+                maxHeight: 600,
+                minHeight: 100,
+              ),
+              suggestionsBuilder: (context, controller) => []),
+        ),
+        SuggestedSearchKeyWidget(
+          onSuggestionTap: (subject) {
+            searchController.text = subject;
+          },
+        ),
+      ],
     );
   }
 }

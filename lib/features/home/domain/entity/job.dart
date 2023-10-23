@@ -15,14 +15,14 @@ class Job with _$Job {
     required String subjectId,
     @JsonKey(fromJson: Subject.fromJson) required Subject subject,
     required String title,
-    String? fee,
-    required String createdAt,
+    required int createdAt,
     required String jobType,
     required String jobMethod,
     required String jobStatus,
+    required int updatedAt,
+    String? fee,
     String? description,
     int? numberOfSession,
-    String? updatedAt,
   }) = _Job;
 
   const Job._();

@@ -4,15 +4,14 @@ import 'package:equatable/equatable.dart';
 import '../../../widget/search_bar_widget.dart';
 
 
-sealed class HomeSearchEvent extends Equatable {
-  const HomeSearchEvent();
+sealed class SearchJobEvent extends Equatable {
+  const SearchJobEvent();
 }
 
-final class SearchTextChanged extends HomeSearchEvent {
-  const SearchTextChanged(this.text, this.searchType);
+final class SearchJobTextChanged extends SearchJobEvent {
+  const SearchJobTextChanged(this.text);
 
   final String text;
-  final SearchType searchType;
   @override
-  List<Object?> get props => [text, searchType];
+  List<Object?> get props => [text];
 }

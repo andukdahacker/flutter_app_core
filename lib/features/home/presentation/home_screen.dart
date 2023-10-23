@@ -7,13 +7,18 @@ import '../../../base/presentation/widget/web_app_bar.dart';
 import '../../../modules/di/di.dart';
 import '../../auth/presentation/bloc/auth_cubit.dart';
 import 'bloc/home_cubit.dart';
-import 'bloc/search/home_search_bloc.dart';
-import 'bloc/search/home_search_event.dart';
-import 'bloc/search/home_search_state.dart';
+import 'bloc/home_state.dart';
+import 'bloc/search/job/search_job_bloc.dart';
+import 'bloc/search/job/search_job_event.dart';
+import 'bloc/search/job/search_job_state.dart';
+import 'bloc/search/suggestion/suggestion_bloc.dart';
+import 'bloc/search/suggestion/suggestion_event.dart';
+import 'bloc/search/tutor/search_tutor_bloc.dart';
+import 'bloc/search/tutor/search_tutor_state.dart';
 import 'widget/job_card_widget.dart';
 import 'widget/menu_drawer_widget.dart';
 import 'widget/search_bar_widget.dart';
-import 'widget/suggested_search_keys_widget.dart';
+import 'widget/tutor_card_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,7 +35,9 @@ class _HomeScreenState extends State<HomeScreen> {
         BlocProvider(create: (context) => getIt<HomeCubit>()),
         BlocProvider(
             create: (context) =>
-                getIt<HomeSearchBloc>()..add(const SearchTextChanged('')))
+                getIt<SearchJobBloc>()..add(const SearchJobTextChanged(''))),
+        BlocProvider(create: (context) => getIt<SearchTutorBloc>()),
+        BlocProvider(create: (context) => getIt<SuggestionBloc>()..add(const SuggestionTextChanged(''))),
       ],
       child: BlocListener<AuthCubit, AuthState>(
         listenWhen: (previous, current) =>
@@ -45,24 +52,43 @@ class _HomeScreenState extends State<HomeScreen> {
             height: context.screenHeight,
           ),
           endDrawer: const MenuDrawerWidget(),
-          body: Column(
-            children: [
-              const SearchBarWidget(),
-              const SuggestedSearchKeyWidget(),
-              BlocBuilder<HomeSearchBloc, HomeSearchState>(
-                  builder: (context, state) => switch (state) {
-                        HomeSearchStateEmpty() => const Text('Empty'),
-                        HomeSearchStateLoading() =>
+          body: BlocBuilder<HomeCubit, HomeState>(
+            buildWhen: (previous, current) =>
+                previous.searchType != current.searchType,
+            builder: (context, state) {
+              return Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: SearchBarWidget(),
+                  ),
+                  if (state.searchType == SearchType.job)
+                    BlocBuilder<SearchJobBloc, SearchJobState>(
+                        builder: (context, state) {
+                      int gridCrossAxisCount = 3;
+
+                      if (context.isSmallScreen) {
+                        gridCrossAxisCount = 2;
+                      } else if (context.isExtraSmallScreen) {
+                        gridCrossAxisCount = 1;
+                      } else {
+                        gridCrossAxisCount = 3;
+                      }
+
+                      return switch (state) {
+                        SearchJobStateEmpty() => const Text('Empty'),
+                        SearchJobStateLoading() =>
                           const CircularProgressIndicator(),
                         SearchJobStateSuccess(jobs: final jobs) => Expanded(
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+                              padding: const EdgeInsets.only(
+                                  left: 16, right: 16, top: 16),
                               child: GridView.builder(
                                 gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 3,
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: gridCrossAxisCount,
                                         crossAxisSpacing: 36,
-                                        childAspectRatio: 3 / 2,
+                                        childAspectRatio: 4 / 3,
                                         mainAxisSpacing: 36),
                                 itemBuilder: (context, index) => JobCardWidget(
                                   job: jobs[index],
@@ -71,10 +97,53 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           ),
-                        HomeSearchStateError(error: final error) =>
+                        SearchJobStateError(error: final error) => Text(error),
+                      };
+                    }),
+                  if (state.searchType == SearchType.tutor)
+                    BlocBuilder<SearchTutorBloc, SearchTutorState>(
+                        builder: (context, state) {
+                      int gridCrossAxisCount = 3;
+
+                      if (context.isSmallScreen) {
+                        gridCrossAxisCount = 2;
+                      } else if (context.isExtraSmallScreen) {
+                        gridCrossAxisCount = 1;
+                      } else {
+                        gridCrossAxisCount = 3;
+                      }
+
+                      return switch (state) {
+                        SearchTutorStateEmpty() => const Text('Empty'),
+                        SearchTutorStateLoading() =>
+                          const CircularProgressIndicator(),
+                        SearchTutorStateSuccess(tutors: final tutors) =>
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 16, right: 16, top: 16),
+                              child: GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: gridCrossAxisCount,
+                                        crossAxisSpacing: 36,
+                                        childAspectRatio: 4 / 3,
+                                        mainAxisSpacing: 36),
+                                itemBuilder: (context, index) =>
+                                    TutorCardWidget(
+                                  tutor: tutors[index],
+                                ),
+                                itemCount: tutors.length,
+                              ),
+                            ),
+                          ),
+                        SearchTutorStateError(error: final error) =>
                           Text(error),
-                      }),
-            ],
+                      };
+                    }),
+                ],
+              );
+            },
           ),
         ),
       ),

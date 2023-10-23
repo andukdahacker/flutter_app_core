@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../base/presentation/widget/theme_switch_widget.dart';
+
 class MenuDrawerWidget extends StatelessWidget {
   const MenuDrawerWidget({super.key});
 
@@ -23,6 +25,7 @@ class MenuDrawerWidget extends StatelessWidget {
               title: Text('Settings'),
               onTap: () {},
             ),
+            const ThemeSwitchWidget(),
           ],
         ),
       );
